@@ -1,56 +1,56 @@
 <template>
   <div class="container">
-  	<div class="data">
-	  	<div v-if="!isFetching && user" class="userInfo">
-	  		<table>
-	  			<thead>
-	  				<th>Username</th>
-	  				<th>SteamID64</th>
-	  				<th>Avatar</th>
-	  			</thead>
-	  			<tbody>
-	  				<tr>
-	  					<td>
-	  						{{ user.username }}
-	  					</td>
-	  					<td>
-	  						{{ user.steamid }}
-	  					</td>
-	  					<td>
-	  						<img :src=user.avatar />
-	  					</td>
-	  				</tr>
-	 			</tbody>
-	 		</table>
-	  	</div>
-	  	<div class="inventory">
-	 		<table>
-	 			<thead>
-	 				<th>
-	 					Market name
-	 				</th>
-	 				<th>
-	 					Icon
-	 				</th>
-	 			</thead>
-	 			<tbody>
-	 				<tr v-for="description in descriptions">
-	 					<td>
-	 						{{ description.market_name }}
-	 					</td>
-	 					<td>
-	 						<img :src=getIcon(description.icon_url)
-	 							contain
-	 							height="100px"
-	 							width="150px"
-	 						/>
-	 					</td>
-	 				</tr>
-	 			</tbody>
-	 		</table>
-	  	</div>
-	  </div>
-  </div>
+	<div class="data">
+		<div v-if="!isFetching && user" class="userInfo">
+			<table>
+				<thead>
+					<th>Username</th>
+					<th>SteamID64</th>
+					<th>Avatar</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ user.username }}
+						</td>
+						<td>
+							{{ user.steamid }}
+						</td>
+						<td>
+							<img :src=user.avatar />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="inventory">
+			<table>
+				<thead>
+					<th>
+						Market name
+					</th>
+					<th>
+						Icon
+					</th>
+				</thead>
+				<tbody>
+					<tr :key="description.assetid" v-for="description in descriptions">
+						<td>
+							{{ description.market_name }}
+						</td>
+						<td>
+							<img :src=getIcon(description.icon_url)
+								contain
+								height="100px"
+								width="150px"
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -69,10 +69,10 @@ export default {
 	}
   },
   methods: {
-  	getIcon(postFix) {
-  		return this.iconUrlPrefix + postFix
-  	},
-  	getInventory() {
+	getIcon(postFix) {
+		return this.iconUrlPrefix + postFix
+	},
+	getInventory() {
 		axios.get('http://localhost:3000/user/inventory/' + this.$route.params.id)
 			.then(response => {
 				this.descriptions = response.data.descriptions
@@ -80,8 +80,8 @@ export default {
 		.catch(e => {
 			this.errors.push(e)
 		})
-  	},
-  	getUser() {
+	},
+	getUser() {
 		axios.get('http://localhost:3000/user/' + this.$route.params.id)
 			.then(response => {
 				this.user = response.data[0]
@@ -90,7 +90,7 @@ export default {
 		.catch(e => {
 			this.errors.push(e)
 		})
-  	}
+	}
   },
   created() {
 	this.getUser()
