@@ -32,6 +32,8 @@
 					<th>
 						Icon
 					</th>
+					<th>
+					</th>
 				</thead>
 				<tbody>
 					<tr :key="description.assetid" v-for="description in descriptions">
@@ -44,6 +46,11 @@
 								height="100px"
 								width="150px"
 							/>
+						</td>
+						<td>
+							<button v-on:click="trade()">
+								Trade
+							</button>
 						</td>
 					</tr>
 				</tbody>
@@ -69,6 +76,9 @@ export default {
 	}
   },
   methods: {
+  	trade() {
+  		console.log('trade')
+  	},
 	getIcon(postFix) {
 		return this.iconUrlPrefix + postFix
 	},
