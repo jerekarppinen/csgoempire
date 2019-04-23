@@ -1,1 +1,1 @@
-# csgoempire
+* Put your steam api key in laravel-app/.env
